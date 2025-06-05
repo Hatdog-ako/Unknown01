@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hello Kitty Calculator with Slide</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-image: url('https://i.imgur.com/lI2A6Ns.jpeg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+    }
+    .box {
+      border: 4px solid #ff69b4;
+      padding: 20px;
+      border-radius: 20px;
+      background-color: #fff0f5;
+      box-shadow: 8px 8px 0px #ffb6c1;
+      max-width: 350px;
+      width: 90%;
+    }
+    .kitty-header img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    /* Display box style */
+    .display-box {
+      position: relative;
+      height: 40px;
+      border-radius: 10px;
+      border: 2px solid #ff69b4;
+      background-color: #ffe6f0;
+      font-size: 18px;
+      color: #d63384;
+      font-weight: bold;
+      width: 100%;
+      box-shadow: inset 2px 2px 5px #ffc0cb;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: right;
+      padding-right: 10px;
+      line-height: 40px;
+      user-select: none;
+    }
+
+    /* Sliding text */
+    .slide-text {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: slideLeft;
+      animation-duration: 120s;
+    }
+    @keyframes slideLeft {
+      from {
+        transform: translateX(0%);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Buttons and other styles same as your original */
+    .button-container {
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .buttons {
+      margin: 5px;
+      padding: 10px;
+      width: 22%;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffb6c1;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 4px 4px 0px #e75480;
+      transition: 0.2s ease;
+      position: relative;
+    }
+    .buttons:hover {
+      background-color: #ff69b4;
+      cursor: pointer;
+    }
+    .kitty-icon {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+    }
+    #equals {
+      width: 72%;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 18px;
+    }
+    .equals-img {
+      width: 45px;
+      height: 45px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .buttons:active {
+      box-shadow: 2px 2px 2px #e75480 inset;
+      transform: scale(0.95);
+    }
+    @keyframes sparkle {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.5); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .sparkle-bounce {
+      animation: sparkle 2s infinite ease-in-out, bounce 1.5s infinite ease-in-out;
+    }
+
+    /* WIGGLE ANIMATION (continuous) */
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      75% { transform: rotate(-5deg); }
+    }
+    .wiggle {
+      animation: wiggle 0.5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box">
+      <div class="kitty-header">
+        <img src="https://i.imgur.com/OfHf1wq.png" alt="Hello Kitty Top" class="sparkle-bounce" />
+      </div>
+
+      <div class="display-box" id="displayBox">
+        <!-- Text content inserted here -->
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-container">
+        <button class="buttons" onclick="press(1)">1 <img src="https://i.imgur.com/lVbT3x1.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press(2)">2 <img src="https://i.imgur.com/E5L8w5b.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press(3)">3 <img src="https://i.imgur.com/MEeLMQ3.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press('*')">× <img src="https://i.imgur.com/w4pHJXI.png" class="kitty-icon" /></button>
+      </div>
+      <div class="button-container">
+        <button class="buttons" onclick="press(4)">4 <img src="https://i.imgur.com/Y8hCYFk.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press(5)">5 <img src="https://i.imgur.com/7zELApV.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press(6)">6 <img src="https://i.imgur.com/cZi9AZw.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press('/')">÷ <img src="https://i.imgur.com/QCUVFgf.png" class="kitty-icon" /></button>
+      </div>
+      <div class="button-container">
+        <button class="buttons" onclick="press(7)">7 <img src="https://i.imgur.com/dWXnbAx.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press(8)">8 <img src="https://i.imgur.com/6bnl6Ec.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press(9)">9 <img src="https://i.imgur.com/Vp7vTb0.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press('-')">− <img src="https://i.imgur.com/1OFmqJc.png" class="kitty-icon" /></button>
+      </div>
+      <div class="button-container">
+        <button class="buttons" onclick="erase()">CE <img src="https://i.imgur.com/pT7kBKp.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press('00')">00 <img src="https://i.imgur.com/Z6TjvJl.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press(0)">0 <img src="https://i.imgur.com/32gpevN.png" class="kitty-icon" /></button>
+        <button class="buttons" onclick="press('+')">+ <img src="https://i.imgur.com/EpEErgL.png" class="kitty-icon" /></button>
+      </div>
+
+      <div class="button-container">
+        <button class="buttons" id="equals" onclick="equal()">=</button>
+        <img src="https://i.imgur.com/4eqEpzA.png" alt="Hello Kitty Equal" class="equals-img sparkle-bounce" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="clickSound" src="https://www.dropbox.com/scl/fi/0ygg1fh8v5va9smtwvti4/SpotiDownloader.com-One-Thing-One-Direction.mp3?dl=1" preload="auto"></audio>
+  <audio id="equalSound" src="ikot.mp3" preload="auto"></audio>
+
+  <script>
+    const displayBox = document.getElementById("displayBox");
+    let button = "";
+
+    const clickSound = document.getElementById("clickSound");
+    const equalSound = document.getElementById("equalSound");
+
+    function press(num) {
+      stopSlide();
+      button += num;
+      displayBox.textContent = button;
+      playClickSound();
+    }
+
+    function equal() {
+      try {
+        const result = eval(button);
+        displayBox.textContent = result;
+        button = result;
+        playEqualSound();
+
+        // Make Hello Kitty wiggle forever
+        const kittyImage = document.querySelector('.kitty-header img');
+        kittyImage.classList.add('wiggle');
+
+        // After 2 seconds, show sliding message
+        setTimeout(() => {
+          showSlidingMessage();
+        }, 2000);
+      } catch (e) {
+        displayBox.textContent = "Error";
+        button = "";
+      }
+    }
+
+    function erase() {
+      stopSlide();
+      button = '';
+      displayBox.textContent = '';
+      playClickSound();
+    }
+
+    function playClickSound() {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+
+    function playEqualSound() {
+      equalSound.currentTime = 0;
+      equalSound.play();
+    }
+
+    // Function to show sliding message inside display box
+    function showSlidingMessage() {
+      const message = "Hey, I know it’s late and this might come out of nowhere, but I just want to say something. I know it’s sudden and maybe random for you, but the truth is I’m falling for you. I can’t even explain why I feel this way, I just do. I know it sounds crazy, a guy falling for a girl after only a month. It feels wrong, like it shouldn’t happen this fast. But sometimes the heart doesn’t listen to reason. It just feels. This is why I’ve been pulling away lately. I thought giving myself some space would help me think but it only made things harder. Sometimes I even think you don’t care. You probably don’t, and maybe that’s the truth I’m afraid to face. It hurts when I see your reposts and wonder if they are about your ex. I don’t even know who those people are that you are referring to in your Instagram notes and that confusion hurts too. It also hurts when your replies come late. I don’t know why it affects me so much. Maybe it’s silly but can you really blame a guy’s heart? It is fragile and confused. There are so many things I want to say but I don’t know if I can say it all. All I want you to know is that I’m falling for you. Maybe this is the last time I say it because I am tired. I can’t keep pretending I’m okay. I’m just a sensitive guy and this is for my peace of mind. My brain and heart cannot take it anymore. Thank you for everything, even the moments that confused me. I am usually the negative one, never seeing the bright side, but with you it is different. I want to be positive but it is hard when I think you might still miss someone else. That thought hurts. If you ever feel like talking about anything, anything at all, feel free to. I am here to listen. No pressure, just whenever you want. Should I give up? Or should I just keep chasing pavements? Even if it leads nowhere Or would it be a waste? Even If I knew my place, should I leave it there? I don’t have the answers but I had to say this. It is messy and imperfect but it is honest. Goodnight.";
+
+      // Clear existing text
+      displayBox.textContent = "";
+
+      // Create a span to hold sliding text
+      const slideSpan = document.createElement("span");
+      slideSpan.classList.add("slide-text");
+      slideSpan.textContent = message;
+
+      displayBox.appendChild(slideSpan);
+    }
+
+    // Stop sliding (remove message and reset)
+    function stopSlide() {
+      displayBox.textContent = "";
+      displayBox.style.animation = "none";
+    }
+  </script>
+</body>
+</html>
